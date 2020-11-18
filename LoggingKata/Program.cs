@@ -36,10 +36,43 @@ namespace LoggingKata
             // TODO: Create two `ITrackable` variables with initial values of `null`. These will be used to store your two taco bells that are the farthest from each other.
             // Create a `double` variable to store the distance
 
+            ITrackable location1 = null;
+            ITrackable location2 = null;
+
+            double distance = 0; // diff between loc 1 and two
+
             // Include the Geolocation toolbox, so you can compare locations: `using GeoCoordinatePortable;`
 
             //HINT NESTED LOOPS SECTION---------------------
             // Do a loop for your locations to grab each location as the origin (perhaps: `locA`)
+            for (int i = 0; i < locations.Length; i++)
+            {
+                var locA = locations[i];
+                var cordA = new GeoCoordinate();
+                cordA.Latitude = locA.Location.Latitude;
+
+                cordA.Longitude = locA.Location.Longitude;
+                for (int v = 0; v < locations.Length; v++)
+                {
+                    var locB = locations[v];
+                    var cordB = new GeoCoordinate();
+                    cordB.Latitude = locB.Location.Latitude;
+
+                    cordB.Longitude = locB.Location.Longitude;
+
+
+                    if (cordA.GetDistanceTo(cordB) > distance )
+                    {
+                    distance = cordA.GetDistanceTo(cordB);
+                        location1 = locA;
+                        location2 = locB;
+                    }
+                }
+
+
+            }
+            Console.WriteLine($"{location1.Name} is furthest from {location2.Name} with a distance of {distance}");
+
 
             // Create a new corA Coordinate with your locA's lat and long
 
